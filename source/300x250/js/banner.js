@@ -4,7 +4,7 @@ var isDesktop;
 var playVideo = false;
 var clickTag;
 var bgImage01, bgImage02, bgImage03;
-var cloudImage1, cloudImage2, cloudImage3, cloudImage4, featureImage;
+var cloudImage1, cloudImage2, cloudImage3, sparkleImage1, sparkleImage2, sparkleImage3, featureImage;
 
 // Banner timings
 var timingValues;
@@ -19,7 +19,7 @@ function init() {
 
     // Init CSS
     // =========================
-    TweenMax.set('.feature', {x:0, y:0, display:'block'})
+    TweenMax.set('.feature', {x:100, y:200, display:'block'})
     TweenMax.set('.logo-container', {y:26});
     TweenMax.set('.cta-arrow', {rotation:45, transformOrigin:'50% 50%'});
     TweenMax.set('.panel-03', {x:-300});
@@ -27,41 +27,43 @@ function init() {
     TweenMax.set('.panel-05', {x:-300});
     TweenMax.set('.graph-line', {scaleX:0});
     TweenMax.set('#fr-logo-intro', {opacity:1});
-    TweenMax.set('.ladder', {y:-800, left:"210px", width:"90px"});
-    TweenMax.set('.cloud3', {top:"-64px", left:"100px", width:"160px"});
-    TweenMax.set('.cloud2', {top:"-120px", left:"50px", width:"140px"});
-    TweenMax.set('.cloud1', {left:"160px", width:"160px"});
-    TweenMax.set('.cloud4', {top:"20px", left:"210px", width:"240px"});
+    TweenMax.set('.cloud1', {x:10, y:120});
+    TweenMax.set('.cloud2', {x:140, y:90});
+    TweenMax.set('.cloud3', {x:200, y:0});
 
 
 
     // Feature images
     // =========================
     bgImage01 = 'skybg.jpg';
-    featureImage = 'ladder.png';
-    cloudImage1 = 'cloud1.png';
-    cloudImage2 = 'cloud2.png';
-    cloudImage3 = 'cloud3.png';
-    cloudImage4 = 'cloud4.png';
+    featureImage = 'hot-air-baloon.png';
+    cloudImage1 = 'cloud-left.png';
+    cloudImage2 = 'cloud-top-right.png';
+    cloudImage3 = 'cloud-bottom-right.png';
+    sparkleImage1 = 'Sparkle1.png';
+    sparkleImage2 = 'Sparkle2.png';
+    sparkleImage3 = 'Sparkle3.png';
 
 
     // Copy
     // =========================
 
 
-    $('.frame-2 p').html('ASSUME THE<br>POSITION');
-    $('.frame-3 p').html('CLIMBING THE<br>CORPORATE<br>LADDER');
-    $('.frame-4 p').html('TAKE THE LEAD<br>WITH THE AFR');
-    $('.frame-5 p').html('TRY THE AFR<br>FREE FOR 1 MONTH');
+    $('.frame-2 p').html('LIVING THE<br>HIGH LIFE');
+    $('.frame-3 p').html('A CLOSER<br>LOOK AT LIVING<br>IN LUXURY');
+    $('.frame-4 p').html('MIX BUSINESS<br>WITH LEISURE<br>WITH THE AFR.');
+    $('.frame-5 p').html('TRY THE AFR<br>FREE FOR 1 MONTH.');
 
     $('.cta-copy').html('Find out more');
 
     $('.bg-image-01').attr('src', bgImage01);
-    $('.ladder').attr('src', featureImage);
+    $('.hot-air').attr('src', featureImage);
     $('.cloud1').attr('src', cloudImage1);
     $('.cloud2').attr('src', cloudImage2);
     $('.cloud3').attr('src', cloudImage3);
-    $('.cloud4').attr('src', cloudImage4);
+    $('.sparkle1').attr('src', sparkleImage1);
+    $('.sparkle2').attr('src', sparkleImage2);
+    $('.sparkle3').attr('src', sparkleImage3);
 
 
 
@@ -87,11 +89,13 @@ function init() {
 
     const manifest = [
         "skybg.jpg",
-        "cloud1.png",
-        "cloud2.png",
-        "cloud3.png",
-        "cloud4.png",
-        "ladder.png",
+        "cloud-left.png",
+        "cloud-top-right.png",
+        "cloud-bottom-right.png",
+        "hot-air-baloon.png",
+        "Sparkle1.png",
+        "Sparkle2.png",
+        "Sparkle3.png"
     ];
 
     preloadimages(manifest)
@@ -124,21 +128,23 @@ function start() {
     mySplitText04.split({type:"lines, chars, words", linesClass:"splitLines"});
 
     var tlFeature = new TimelineMax();
-    var tlClouds = new TimelineMax({repeat:1, repeatDelay:0});
 
-    function cloudsAnimation() {
-      tlClouds
+    var tlSparkles = new TimelineMax({repeat:3});
 
-      //.to('.cloud3', 0.5, {ease: Power1.easeInOut, y:"+=380"}, "-=0.25")
-
+    function rotateSparkles() {
+      tlSparkles.to('.sparkle1', 10, {ease: Power1.easeInOut, rotation:360})
+                .to('.sparkle1', 12, {ease: Power1.easeInOut, rotation:360}, "-=10")
+                .to('.sparkle3', 14, {ease: Power1.easeInOut, rotation:360}, "-=12")
+      ;
     }
 
+
     function featureAnimation() {
-        tlFeature.to('.ladder', 6, {ease: Back.easeOut.config(1), y:20})
-                 .fromTo('.cloud4', 6, {ease: Power1.easeInOut, y:-190}, {y:70}, "-=6")
-                 .fromTo('.cloud2', 16, {ease: Power1.easeInOut, y:10}, {y:290}, "-=10")
-                 .fromTo('.cloud3', 8, {ease: Power1.easeInOut, y:-190}, {y:220}, "-=16")
-                 .fromTo('.cloud1', 16, {ease: Power1.easeInOut, y:-300}, {y:90}, "-=16")
+        tlFeature.to('.feature', 5, {ease: Back.easeOut.config(1), scale:0.7, x:110, y:-40})
+                 .to('.cloud2', 6, {ease: Power1.easeInOut, x:"-=20", y:"-=20"}, "-=5")
+                 .to('.cloud3', 8, {ease: Power1.easeInOut, x:"-=20", y:"-=20"}, "-=6")
+                 .to('.cloud1', 4, {ease: Power1.easeInOut, x:"-=20", y:"-=20"}, "-=8")
+                 .to('.feature', 3, {ease: Power1.easeInOut, scale:0.6, x:120, y:-30}, "-=9.5")
         ;
         }
 
@@ -157,6 +163,7 @@ function start() {
       .to('#tag-line-intro', 1.1, {ease:Power1.easeInOut, opacity:0}, "-=1.1")
       .to('#logo-lockup-intro .fr-logo-path', 0.5, {ease:Power1.easeInOut, fill:"#1289ca"}, "-=0.85")
       .call(featureAnimation, [], this, "-=0.9")
+      .call(rotateSparkles, [], this, "-=0.9")
 
       .staggerFrom('.frame-2 p .splitLines', 0.8, {y:-30, alpha:0, ease:Power1.easeInOut}, -0.08, "-=0.1")
       .staggerTo('.frame-2 p .splitLines', 0.8, {y:40, alpha:0, ease:Power1.easeInOut, delay:2}, -0.08)
